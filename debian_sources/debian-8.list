@@ -1,0 +1,8 @@
+deb R_U jessie main contrib non-free
+deb-src R_U jessie main contrib non-free
+
+deb http://deb.debian.org/debian-security/ jessie/updates main contrib non-free
+deb-src http://deb.debian.org/debian-security/ jessie/updates main contrib non-free
+
+deb R_U jessie-updates main contrib non-free
+deb-src R_U jessie-updates main contrib non-free

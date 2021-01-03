@@ -1,0 +1,20 @@
+# Ubuntu bionic
+# Main Repo
+deb R_U bionic main restricted multiverse universe
+deb-src R_U bionic main restricted multiverse universe
+
+# Repo Update
+deb R_U bionic-updates main restricted universe multiverse
+deb-src R_U bionic-updates main restricted universe multiverse
+
+# Repo backports
+deb R_U bionic-backports main restricted universe multiverse
+deb-src R_U bionic-backports main restricted universe multiverse
+
+# Security
+deb http://security.ubuntu.com/ubuntu/ bionic-security main restricted
+deb-src http://security.ubuntu.com/ubuntu/ bionic-security main restricted
+deb http://security.ubuntu.com/ubuntu/ bionic-security universe
+deb-src http://security.ubuntu.com/ubuntu/ bionic-security universe
+deb http://security.ubuntu.com/ubuntu/ bionic-security multiverse
+deb-src http://security.ubuntu.com/ubuntu/ bionic-security multiverse

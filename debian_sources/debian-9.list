@@ -1,0 +1,8 @@
+deb R_U stretch main contrib non-free
+deb-src R_U stretch main contrib non-free
+
+deb http://deb.debian.org/debian-security/ stretch/updates main contrib non-free
+deb-src http://deb.debian.org/debian-security/ stretch/updates main contrib non-free
+
+deb R_U stretch-updates main contrib non-free
+deb-src R_U stretch-updates main contrib non-free

@@ -1,0 +1,46 @@
+name: "Create live ISO from chroot"
+author: "Sirherobrine23"
+description: "Debian ISO from chroot"
+inputs:
+  SCRIPT:
+    description: 'Script in to chroot'
+    required: false
+    default: 'script.sh'
+
+  DIST:
+    description: 'Script in to chroot'
+    required: false
+    default: 'Live'
+
+  DIST_BASE:
+    description: 'Script in to chroot'
+    required: false
+    default: 'ubuntu'
+
+  REPO_URL:
+    description: 'Script in to chroot'
+    required: false
+    default: 'http://archive.ubuntu.com/ubuntu/'
+
+  SPACE:
+    description: 'More disk space'
+    required: false
+    default: 'true'
+
+  NGROK_TOKEN:
+    description: 'Ngrok acess nginx pages'
+    required: false
+    default: ''
+
+  NGROK_WEB_TIME:
+    description: 'Ngrok acess nginx pages'
+    required: false
+    default: '5m'
+  
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+
+branding:
+  icon: 'code'
+  color: 'gray-dark'

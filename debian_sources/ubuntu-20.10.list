@@ -1,0 +1,20 @@
+# Ubuntu groovy
+# Main Repo
+deb R_U groovy main restricted multiverse universe
+deb-src R_U groovy main restricted multiverse universe
+
+# Repo Update
+deb R_U groovy-updates main restricted universe multiverse
+deb-src R_U groovy-updates main restricted universe multiverse
+
+# Repo backports
+deb R_U groovy-backports main restricted universe multiverse
+deb-src R_U groovy-backports main restricted universe multiverse
+
+# Security
+deb http://security.ubuntu.com/ubuntu/ groovy-security main restricted
+deb-src http://security.ubuntu.com/ubuntu/ groovy-security main restricted
+deb http://security.ubuntu.com/ubuntu/ groovy-security universe
+deb-src http://security.ubuntu.com/ubuntu/ groovy-security universe
+deb http://security.ubuntu.com/ubuntu/ groovy-security multiverse
+deb-src http://security.ubuntu.com/ubuntu/ groovy-security multiverse

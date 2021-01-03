@@ -1,0 +1,38 @@
+name: Chroot Teste
+on: [push]
+jobs:
+  check-debian:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Debian
+        uses: Sirherobrine23/Debian_ISO@main
+        with:
+          DIST: 'Debian Teste'
+          DIST_BASE: "debian"
+          REPO_URL: "http://ftp.debian.org/debian"
+          SPACE: 'false'
+          NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
+
+      - uses: actions/upload-artifact@v2.2.1
+        with:
+          name: "Debian"
+          path: ./
+          retention-days: 2
+
+  check-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ubuntu
+        uses: Sirherobrine23/Debian_ISO@main
+        with:
+          DIST: 'Ubuntu Teste'
+          DIST_BASE: "ubuntu"
+          REPO_URL: "http://archive.ubuntu.com/ubuntu"
+          SPACE: 'false'
+          NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
+
+      - uses: actions/upload-artifact@v2.2.1
+        with:
+          name: "Ubuntu"
+          path: ./
+          retention-days: 2
