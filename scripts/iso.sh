@@ -109,9 +109,8 @@ cd ../
 
 touch image/ubuntu
 echo "Creating the GRUB file"
-if [ ${INPUT_DIST_BASE} == "debian" ];then
 echo "
-search --set=root --file /ubuntu
+#search --set=root --file /ubuntu
 
 insmod all_video
 
@@ -119,38 +118,12 @@ set default=\"0\"
 set timeout=10
 
 menuentry \"${INPUT_DIST}\" {
-    echo booting ${INPUT_DIST} ...
-    linux /casper/vmlinuz boot=live toram=filesystem.squashfs
-    initrd /casper/initrd
-}
-
-
-" > image/isolinux/grub.cfg
-else
-echo "
-search --set=root --file /ubuntu
-
-insmod all_video
-
-set default=\"0\"
-set timeout=10
-
-menuentry \"${INPUT_DIST} With Splash\" {
-    echo booting ${INPUT_DIST} ...
-    linux /casper/vmlinuz boot=casper quiet splash ---
-    initrd /casper/initrd
-}
-
-menuentry \"${INPUT_DIST} Without Splash\" {
-    echo booting ${INPUT_DIST} ...
-    linux /casper/vmlinuz boot=casper
+    
+    linux /casper/vmlinuz root=/system/ rw
     initrd /casper/initrd
 }
 
 " > image/isolinux/grub.cfg
-fi
-
-
 chroot chroot dpkg-query -W --showformat='${Package} ${Version}\n' | tee image/casper/filesystem.manifest >/dev/null 2>&1
 cp -v image/casper/filesystem.manifest image/casper/filesystem.manifest-desktop
 sed -i '/ubiquity/d' image/casper/filesystem.manifest-desktop
@@ -163,7 +136,8 @@ printf $(du -sx --block-size=1 chroot/ | cut -f1) > image/casper/filesystem.size
 echo "Chroot size: $(cat image/casper/filesystem.size)"
 echo "----------------------------"
 echo "Creating the filesystem.squashfs"
-mksquashfs ./chroot/ image/casper/filesystem.squashfs #&>> image/squash.txt
+# mksquashfs ./chroot/ image/casper/filesystem.squashfs
+mv -vf ./chroot/. image/system/
 echo "----------------------------"
 echo "..."
 echo "#define DISKNAME  ${INPUT_DIST}
