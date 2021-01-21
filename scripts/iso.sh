@@ -137,7 +137,8 @@ echo "Chroot size: $(cat image/casper/filesystem.size)"
 echo "----------------------------"
 echo "Creating the filesystem.squashfs"
 # mksquashfs ./chroot/ image/casper/filesystem.squashfs
-mv -vf ./chroot/. image/system/
+# mkdir -p image/system
+cp -rvf ./chroot image/system
 echo "----------------------------"
 echo "..."
 echo "#define DISKNAME  ${INPUT_DIST}
