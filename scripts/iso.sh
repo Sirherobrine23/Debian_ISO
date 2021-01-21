@@ -20,6 +20,7 @@ echo "**********************************"
 echo "Creating chroot environment, wait"
 mkdir -p image/{casper,isolinux,install,log}
 if [ ${INPUT_DIST_BASE} == "debian" ];then
+    echo "Debian may have Panic kernel, use Ubuntu"
     if debootstrap buster chroot/ ${INPUT_REPO_URL} &>> buster.txt;then
         echo "Debian Buster (10)"
     elif debootstrap stretch chroot/ ${INPUT_REPO_URL} &>> stretch.txt;then
@@ -108,6 +109,24 @@ cd ../
 
 touch image/ubuntu
 echo "Creating the GRUB file"
+if [ ${INPUT_DIST_BASE} == "debian" ];then
+echo "
+search --set=root --file /ubuntu
+
+insmod all_video
+
+set default=\"0\"
+set timeout=10
+
+menuentry \"${INPUT_DIST}\" {
+    echo booting ${INPUT_DIST} ...
+    linux /casper/vmlinuz boot=live toram=filesystem.squashfs
+    initrd /casper/initrd
+}
+
+
+" > image/isolinux/grub.cfg
+else
 echo "
 search --set=root --file /ubuntu
 
@@ -117,19 +136,21 @@ set default=\"0\"
 set timeout=10
 
 menuentry \"${INPUT_DIST} With Splash\" {
-   linux /casper/vmlinuz boot=casper quiet splash ---
-   initrd /casper/initrd
+    echo booting ${INPUT_DIST} ...
+    linux /casper/vmlinuz boot=casper quiet splash ---
+    initrd /casper/initrd
 }
 
 menuentry \"${INPUT_DIST} Without Splash\" {
-   linux /casper/vmlinuz boot=casper
-   initrd /casper/initrd
+    echo booting ${INPUT_DIST} ...
+    linux /casper/vmlinuz boot=casper
+    initrd /casper/initrd
 }
 
-menuentry \"${INPUT_DIST} Without Casper, Splash (Not tested)\" {
-   linux /casper/vmlinuz boot=
-   initrd /casper/initrd
-}" > image/isolinux/grub.cfg
+" > image/isolinux/grub.cfg
+fi
+
+
 chroot chroot dpkg-query -W --showformat='${Package} ${Version}\n' | tee image/casper/filesystem.manifest >/dev/null 2>&1
 cp -v image/casper/filesystem.manifest image/casper/filesystem.manifest-desktop
 sed -i '/ubiquity/d' image/casper/filesystem.manifest-desktop

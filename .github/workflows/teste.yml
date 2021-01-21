@@ -13,11 +13,22 @@ jobs:
           SPACE: 'false'
           NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
 
-      - uses: actions/upload-artifact@v2.2.1
+      - name: Upload To Releases
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: "Debian"
-          path: ./
-          retention-days: 2
+          name: Debian
+          tag_name: ${{ github.run_id }}
+          files: "*.iso"
+
+      - name: Delete Old Releases
+        uses: dev-drprasad/delete-older-releases@v0.1.0
+        with:
+          keep_latest: 2
+          delete_tags: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   check-ubuntu:
     runs-on: ubuntu-latest
@@ -31,8 +42,19 @@ jobs:
           SPACE: 'false'
           NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
 
-      - uses: actions/upload-artifact@v2.2.1
+      - name: Upload To Releases
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: "Ubuntu"
-          path: ./
-          retention-days: 2
+          name: ubuntu
+          tag_name: ${{ github.run_id }}
+          files: "*.iso"
+
+      - name: Delete Old Releases
+        uses: dev-drprasad/delete-older-releases@v0.1.0
+        with:
+          keep_latest: 2
+          delete_tags: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

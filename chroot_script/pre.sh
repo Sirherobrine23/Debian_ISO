@@ -30,7 +30,7 @@ dpkg-divert --local --rename --add /sbin/initctl
 ln -s /bin/true /sbin/initctl
 
 if [ $ID == "debian" ];then
-    kernelL="linux-headers-amd64 linux-image-amd64"
+    kernelL="linux-headers-amd64 linux-image-amd64 live-boot live-boot-initramfs-tools extlinux"
 else
     kernelL="ubuntu-standard linux-generic"
 fi
@@ -40,6 +40,7 @@ do
     apt install -y $installer
     echo "::endgroup::"
 done
+update-initramfs -u
 echo "::group::Installing: Visual studio code insider"
     wget -q "https://code.visualstudio.com/sha/download?build=insider&os=linux-deb-x64" -O /tmp/code.deb
     dpkg -i /tmp/code.deb
